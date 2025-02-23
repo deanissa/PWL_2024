@@ -15,6 +15,12 @@ use App\Http\Controllers\PhotoController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+//View
+Route::get('/greeting', function () {
+	return view('blog.hello', ['name' => 'Dea']);
+});
+Route::get('/greeting', [WelcomeController::class, 'greeting']);
+
 //Resource Controller
 Route::resource('photos', PhotoController::class);
 
