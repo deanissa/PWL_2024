@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\SingleActionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PhotoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,16 +15,20 @@ use App\Http\Controllers\PageController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+//Resource Controller
+Route::resource('photos', PhotoController::class);
 
 //Controller
 Route::get('/hello', [WelcomeController::class,'hello']);
 Route::get('/', [PageController::class,'index']);
 Route::get('/about', [PageController::class,'about']);
-Route::get('/articels/{id}', [PageController::class,'articels']);
+Route::get('/articels/{id}', action: [PageController::class,'articels']);
+Route::get('/single/{id?}',[SingleActionController::class, 'single']);
 
 Route::get('/world', function () {
     return 'World';
 });
+
 
 //Basic Routing
 //Route::get('/hello', function () {
@@ -33,9 +39,10 @@ Route::get('/world', function () {
     //return 'Selamat Datang';
 //});
 
-//Route::get('/about', function () {
-    //return '2341760187';
-//});
+Route::get('/about', function () {
+    return '2341760187';
+});
+
 
 //Route Parameters
 Route::get('/user/{deanissa}', function ($name) {
@@ -49,6 +56,7 @@ Route::get('/posts/{post}/comments/{comment}', function ($postId, $commentId) {
 Route::get('/articels/{id}', function ($Id) {
     return 'Halaman Artikel dengan ID-'.$Id ;
 });
+
 
 //Optional Parameters
 Route::get('/user/{name?}', function ($name=null) {
